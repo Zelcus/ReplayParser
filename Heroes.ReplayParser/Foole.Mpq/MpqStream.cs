@@ -408,10 +408,12 @@ namespace Foole.Mpq
                     stream.CopyTo(output);
                 }
 #elif WITH_SHARPCOMPRESS
+                /*
                 using (var stream = new SharpCompress.Compressors.BZip2.BZip2Stream(data, SharpCompress.Compressors.CompressionMode.Decompress, false))
                 {
                     stream.CopyTo(output);
                 }
+                */
 #elif WITH_SHARPZIPLIB
                 ICSharpCode.SharpZipLib.BZip2.BZip2.Decompress(data, output, true);
 #else
@@ -437,10 +439,12 @@ namespace Foole.Mpq
                     stream.CopyTo(output);
                 }
 #elif WITH_SHARPCOMPRESS
+                /*
                 using (var stream = new SharpCompress.Compressors.Deflate.ZlibStream(data, SharpCompress.Compressors.CompressionMode.Decompress))
                 {
                     stream.CopyTo(output);
                 }
+                */
 #elif WITH_SHARPZIPLIB
                 using (var stream = new ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream(data))
                 {
