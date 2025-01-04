@@ -1,6 +1,5 @@
-// Support 4 different decompression libraries: DotNetZip, bzip2.net, SharpCompress, SharpZipLib
 // Listed in order of decreasing performance, SharpZipLib is considerably slower than the others
-//#define WITH_DOTNETZIP
+//#define WITH_SHARPZIPLIB
 //#define WITH_BZIP2NET
 //#define WITH_SHARPCOMPRESS
 //#define WITH_SHARPZIPLIB
@@ -75,15 +74,15 @@ namespace Foole.Mpq
 
             _blockPositions = new uint[blockposcount];
 
-            lock(_stream)
+            lock (_stream)
             {
                 _stream.Seek(_entry.FilePos, SeekOrigin.Begin);
                 BinaryReader br = new BinaryReader(_stream);
-                for(int i = 0; i < blockposcount; i++)
+                for (int i = 0; i < blockposcount; i++)
                     _blockPositions[i] = br.ReadUInt32();
             }
 
-            uint blockpossize = (uint) blockposcount * 4;
+            uint blockpossize = (uint)blockposcount * 4;
 
             /*
             if(_blockPositions[0] != blockpossize)
@@ -278,7 +277,7 @@ namespace Foole.Mpq
             // OW: avoid reading past the contents of the file
             if (_position >= Length)
                 return 0;
-            
+
             BufferData();
 
             int localposition = (int)(_position % _blockSize);
@@ -397,28 +396,12 @@ namespace Foole.Mpq
         {
             using (MemoryStream output = new MemoryStream(expectedLength))
             {
-#if WITH_DOTNETZIP
-                using (var stream = new Ionic.BZip2.BZip2InputStream(data, false))
-                {
-                    stream.CopyTo(output);
-                }
-#elif WITH_BZIP2NET
-                using (var stream = new Bzip2.BZip2InputStream(data, false))
-                {
-                    stream.CopyTo(output);
-                }
-#elif WITH_SHARPCOMPRESS
-                /*
-                using (var stream = new SharpCompress.Compressors.BZip2.BZip2Stream(data, SharpCompress.Compressors.CompressionMode.Decompress, false))
-                {
-                    stream.CopyTo(output);
-                }
-                */
-#elif WITH_SHARPZIPLIB
+#if WITH_SHARPZIPLIB
                 ICSharpCode.SharpZipLib.BZip2.BZip2.Decompress(data, output, true);
 #else
-                throw new NotImplementedException("Please define which compression library you want to use");
+    throw new NotImplementedException("Please define which compression library you want to use");
 #endif
+
                 return output.ToArray();
             }
         }
@@ -433,25 +416,13 @@ namespace Foole.Mpq
         {
             using (MemoryStream output = new MemoryStream(expectedLength))
             {
-#if WITH_DOTNETZIP
-                using (var stream = new Ionic.Zlib.ZlibStream(data, Ionic.Zlib.CompressionMode.Decompress))
-                {
-                    stream.CopyTo(output);
-                }
-#elif WITH_SHARPCOMPRESS
-                /*
-                using (var stream = new SharpCompress.Compressors.Deflate.ZlibStream(data, SharpCompress.Compressors.CompressionMode.Decompress))
-                {
-                    stream.CopyTo(output);
-                }
-                */
-#elif WITH_SHARPZIPLIB
+#if WITH_SHARPZIPLIB
                 using (var stream = new ICSharpCode.SharpZipLib.Zip.Compression.Streams.InflaterInputStream(data))
                 {
                     stream.CopyTo(output);
                 }
 #else
-                throw new NotImplementedException("Please define which compression library you want to use");
+    throw new NotImplementedException("Please define which compression library you want to use");
 #endif
                 return output.ToArray();
             }
