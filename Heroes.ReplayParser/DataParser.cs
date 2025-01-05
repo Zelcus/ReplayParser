@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Heroes.ReplayParser.MPQFiles;
+using Heroes.ReplayParser.MPQFiles.DataStructures;
+using GameEventDataStructure = Heroes.ReplayParser.MPQFiles.DataStructures.GameEvent;
 using MpqHeader = Heroes.ReplayParser.MPQFiles.MpqHeader;
 
 namespace Heroes.ReplayParser
@@ -151,13 +153,18 @@ namespace Heroes.ReplayParser
                 replay.TrackerEvents = ReplayTrackerEvents.Parse(GetMpqFile(archive, ReplayTrackerEvents.FileName));
                 try
                 {
-                    replay.GameEvents = ReplayGameEvents.Parse(GetMpqFile(archive, ReplayGameEvents.FileName), replay.ClientListByUserID, replay.ReplayBuild, replay.ReplayVersionMajor, parseOptions.ShouldParseMouseEvents);
+                    replay.GameEvents = ReplayGameEvents.Parse(
+                        GetMpqFile(archive, ReplayGameEvents.FileName),
+                        replay.ClientListByUserID,
+                        replay.ReplayBuild,
+                        replay.ReplayVersionMajor,
+                        parseOptions.ShouldParseMouseEvents
+                    );
                     replay.IsGameEventsParsedSuccessfully = true;
                 }
                 catch
                 {
-                    replay.GameEvents = new List<GameEvent>();
-
+                    replay.GameEvents = new List<MPQFiles.GameEvent>();
                 }
 
                 {
@@ -167,7 +174,12 @@ namespace Heroes.ReplayParser
                         .GroupBy(i => i.player)
                         .ToDictionary(
                             i => i.Key,
-                            i => i.Select(j => new Talent { TalentID = (int)j.data.unsignedInt.Value, TimeSpanSelected = j.TimeSpan }).OrderBy(j => j.TimeSpanSelected).ToArray());
+                            i => i.Select(j => new Talent
+                            {
+                                TalentID = (int)j.data.unsignedInt.Value,
+                                TimeSpanSelected = j.TimeSpan
+                            }).OrderBy(j => j.TimeSpanSelected).ToArray()
+                        );
 
                     foreach (var player in talentGameEventsDictionary.Keys)
                         player.Talents = talentGameEventsDictionary[player];
