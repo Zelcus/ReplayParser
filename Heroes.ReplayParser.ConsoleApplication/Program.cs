@@ -75,6 +75,8 @@ namespace ConsoleApplication
                             Console.WriteLine($"Hero Damage: {player.ScoreResult.HeroDamage}");
                             Console.WriteLine($"Siege Damage: {player.ScoreResult.SiegeDamage}");
                             Console.WriteLine($"Structure Damage: {player.ScoreResult.StructureDamage}");
+                            Console.WriteLine($"Takedowns: {player.ScoreResult.Takedowns}");
+                            Console.WriteLine($"Highest Kill Streak: {player.ScoreResult.HighestKillStreak}");
                             Console.WriteLine($"Talents: {string.Join(",", player.Talents.Select(i => $"{i.TalentID}:{i.TalentName}"))}");
                         }
                         else
