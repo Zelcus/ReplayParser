@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Heroes.ReplayParser.MPQFiles;
-
+using Heroes.ReplayParser.MPQFiles.DataStructures;
 namespace Heroes.ReplayParser
 {
     public class Unit
@@ -110,90 +110,90 @@ namespace Heroes.ReplayParser
         };
 
         public static readonly Dictionary<string, UnitGroup> UnitGroupDictionary = new Dictionary<string, UnitGroup> {
-			{ "HeroAbathur", UnitGroup.Hero },
-			{ "HeroAlarak", UnitGroup.Hero },
-			{ "HeroAnubarak", UnitGroup.Hero },
-			{ "HeroArtanis", UnitGroup.Hero },
-			{ "HeroArthas", UnitGroup.Hero },
-			{ "HeroAuriel", UnitGroup.Hero },
-			{ "HeroAzmodan", UnitGroup.Hero },
-			{ "HeroBaleog", UnitGroup.Hero },
-			{ "HeroBarbarian", UnitGroup.Hero },
-			{ "HeroBrightwing", UnitGroup.Hero },
-			{ "HeroButcher", UnitGroup.Hero },
-			{ "HeroCassia", UnitGroup.Hero },
-			{ "HeroChen", UnitGroup.Hero },
-			{ "HeroChenEarth", UnitGroup.Hero },
-			{ "HeroChenEarthConduit", UnitGroup.Hero },
-			{ "HeroChenFire", UnitGroup.Hero },
-			{ "HeroChenFireConduit", UnitGroup.Hero },
-			{ "HeroChenStorm", UnitGroup.Hero },
-			{ "HeroChenStormConduit", UnitGroup.Hero },
-			{ "HeroCrusader", UnitGroup.Hero },
-			{ "HeroCho", UnitGroup.Hero },
-			{ "HeroChromie", UnitGroup.Hero },
-			{ "HeroDva", UnitGroup.Hero },
-			{ "HeroDehaka", UnitGroup.Hero },
-			{ "HeroDemonHunter", UnitGroup.Hero },
-			{ "HeroDiablo", UnitGroup.Hero },
-			{ "HeroErik", UnitGroup.Hero },
-			{ "HeroFaerieDragon", UnitGroup.Hero },
-			{ "HeroFalstad", UnitGroup.Hero },
-			{ "HeroGall", UnitGroup.Hero },
-			{ "HeroGarrosh", UnitGroup.Hero },
-			{ "HeroGazlowe", UnitGroup.Hero },
-			{ "HeroGenji", UnitGroup.Hero },
-			{ "HeroGreymane", UnitGroup.Hero },
-			{ "HeroGuldan", UnitGroup.Hero },
-			{ "HeroIllidan", UnitGroup.Hero },
-			{ "HeroJaina", UnitGroup.Hero },
-			{ "HeroKaelthas", UnitGroup.Hero },
-			{ "HeroKerrigan", UnitGroup.Hero },
-			{ "HeroL90ETC", UnitGroup.Hero },
-			{ "HeroLeoric", UnitGroup.Hero },
-			{ "HeroLiLi", UnitGroup.Hero },
-			{ "HeroLtMorales", UnitGroup.Hero },
-			{ "HeroLucio", UnitGroup.Hero },
-			{ "HeroLunara", UnitGroup.Hero },
-			{ "HeroMalfurion", UnitGroup.Hero },
-			{ "HeroMalthael", UnitGroup.Hero },
-			{ "HeroMedivh", UnitGroup.Hero },
-			{ "HeroMonk", UnitGroup.Hero },
-			{ "HeroMuradin", UnitGroup.Hero },
-			{ "HeroMurky", UnitGroup.Hero },
-			{ "HeroNecromancer", UnitGroup.Hero },
-			{ "HeroNova", UnitGroup.Hero },
-			{ "HeroOlaf", UnitGroup.Hero },
-			{ "HeroProbius", UnitGroup.Hero },
-			{ "HeroRagnaros", UnitGroup.Hero},
-			{ "HeroRaynor", UnitGroup.Hero },
-			{ "HeroRehgar", UnitGroup.Hero },
-			{ "HeroRexxar", UnitGroup.Hero },
-			{ "HeroSamuro", UnitGroup.Hero },
-			{ "HeroSgtHammer", UnitGroup.Hero },
-			{ "HeroStitches", UnitGroup.Hero },
-			{ "HeroStukov", UnitGroup.Hero },
-			{ "HeroSylvanas", UnitGroup.Hero },
-			{ "HeroTassadar", UnitGroup.Hero },
-			{ "HeroThrall", UnitGroup.Hero },
-			{ "HeroTracer", UnitGroup.Hero },
-			{ "HeroTinker", UnitGroup.Hero },
-			{ "HeroTychus", UnitGroup.Hero },
-			{ "HeroTyrael", UnitGroup.Hero },
-			{ "HeroTyrande", UnitGroup.Hero },
-			{ "HeroUther", UnitGroup.Hero },
-			{ "HeroValeera", UnitGroup.Hero},
-			{ "HeroVarian", UnitGroup.Hero},
-			{ "HeroWitchDoctor", UnitGroup.Hero },
-			{ "HeroWizard", UnitGroup.Hero },
-			{ "HeroZagara", UnitGroup.Hero },
-			{ "HeroZarya", UnitGroup.Hero },
-			{ "HeroZeratul", UnitGroup.Hero },
-			{ "HeroZuljin", UnitGroup.Hero },
-			{ "LongboatRaidBoat", UnitGroup.Hero },
-			{ "MurkyRespawnEgg", UnitGroup.Hero },
+            { "HeroAbathur", UnitGroup.Hero },
+            { "HeroAlarak", UnitGroup.Hero },
+            { "HeroAnubarak", UnitGroup.Hero },
+            { "HeroArtanis", UnitGroup.Hero },
+            { "HeroArthas", UnitGroup.Hero },
+            { "HeroAuriel", UnitGroup.Hero },
+            { "HeroAzmodan", UnitGroup.Hero },
+            { "HeroBaleog", UnitGroup.Hero },
+            { "HeroBarbarian", UnitGroup.Hero },
+            { "HeroBrightwing", UnitGroup.Hero },
+            { "HeroButcher", UnitGroup.Hero },
+            { "HeroCassia", UnitGroup.Hero },
+            { "HeroChen", UnitGroup.Hero },
+            { "HeroChenEarth", UnitGroup.Hero },
+            { "HeroChenEarthConduit", UnitGroup.Hero },
+            { "HeroChenFire", UnitGroup.Hero },
+            { "HeroChenFireConduit", UnitGroup.Hero },
+            { "HeroChenStorm", UnitGroup.Hero },
+            { "HeroChenStormConduit", UnitGroup.Hero },
+            { "HeroCrusader", UnitGroup.Hero },
+            { "HeroCho", UnitGroup.Hero },
+            { "HeroChromie", UnitGroup.Hero },
+            { "HeroDva", UnitGroup.Hero },
+            { "HeroDehaka", UnitGroup.Hero },
+            { "HeroDemonHunter", UnitGroup.Hero },
+            { "HeroDiablo", UnitGroup.Hero },
+            { "HeroErik", UnitGroup.Hero },
+            { "HeroFaerieDragon", UnitGroup.Hero },
+            { "HeroFalstad", UnitGroup.Hero },
+            { "HeroGall", UnitGroup.Hero },
+            { "HeroGarrosh", UnitGroup.Hero },
+            { "HeroGazlowe", UnitGroup.Hero },
+            { "HeroGenji", UnitGroup.Hero },
+            { "HeroGreymane", UnitGroup.Hero },
+            { "HeroGuldan", UnitGroup.Hero },
+            { "HeroIllidan", UnitGroup.Hero },
+            { "HeroJaina", UnitGroup.Hero },
+            { "HeroKaelthas", UnitGroup.Hero },
+            { "HeroKerrigan", UnitGroup.Hero },
+            { "HeroL90ETC", UnitGroup.Hero },
+            { "HeroLeoric", UnitGroup.Hero },
+            { "HeroLiLi", UnitGroup.Hero },
+            { "HeroLtMorales", UnitGroup.Hero },
+            { "HeroLucio", UnitGroup.Hero },
+            { "HeroLunara", UnitGroup.Hero },
+            { "HeroMalfurion", UnitGroup.Hero },
+            { "HeroMalthael", UnitGroup.Hero },
+            { "HeroMedivh", UnitGroup.Hero },
+            { "HeroMonk", UnitGroup.Hero },
+            { "HeroMuradin", UnitGroup.Hero },
+            { "HeroMurky", UnitGroup.Hero },
+            { "HeroNecromancer", UnitGroup.Hero },
+            { "HeroNova", UnitGroup.Hero },
+            { "HeroOlaf", UnitGroup.Hero },
+            { "HeroProbius", UnitGroup.Hero },
+            { "HeroRagnaros", UnitGroup.Hero},
+            { "HeroRaynor", UnitGroup.Hero },
+            { "HeroRehgar", UnitGroup.Hero },
+            { "HeroRexxar", UnitGroup.Hero },
+            { "HeroSamuro", UnitGroup.Hero },
+            { "HeroSgtHammer", UnitGroup.Hero },
+            { "HeroStitches", UnitGroup.Hero },
+            { "HeroStukov", UnitGroup.Hero },
+            { "HeroSylvanas", UnitGroup.Hero },
+            { "HeroTassadar", UnitGroup.Hero },
+            { "HeroThrall", UnitGroup.Hero },
+            { "HeroTracer", UnitGroup.Hero },
+            { "HeroTinker", UnitGroup.Hero },
+            { "HeroTychus", UnitGroup.Hero },
+            { "HeroTyrael", UnitGroup.Hero },
+            { "HeroTyrande", UnitGroup.Hero },
+            { "HeroUther", UnitGroup.Hero },
+            { "HeroValeera", UnitGroup.Hero},
+            { "HeroVarian", UnitGroup.Hero},
+            { "HeroWitchDoctor", UnitGroup.Hero },
+            { "HeroWizard", UnitGroup.Hero },
+            { "HeroZagara", UnitGroup.Hero },
+            { "HeroZarya", UnitGroup.Hero },
+            { "HeroZeratul", UnitGroup.Hero },
+            { "HeroZuljin", UnitGroup.Hero },
+            { "LongboatRaidBoat", UnitGroup.Hero },
+            { "MurkyRespawnEgg", UnitGroup.Hero },
 
-			{ "ItemMULE", UnitGroup.HeroAbilityUse },
+            { "ItemMULE", UnitGroup.HeroAbilityUse },
             { "ScoutingDrone", UnitGroup.HeroAbilityUse },
             { "TalentHealingWard", UnitGroup.HeroAbilityUse },
 
@@ -266,7 +266,7 @@ namespace Heroes.ReplayParser
 
             { "RegenGlobe", UnitGroup.HeroAbilityUse },
             { "RegenGlobeNeutral", UnitGroup.HeroAbilityUse },
-            
+
             { "TownCannonTowerL2", UnitGroup.Structures },
             { "TownCannonTowerL2Standalone", UnitGroup.Structures },
             { "TownCannonTowerL3", UnitGroup.Structures },
@@ -315,7 +315,7 @@ namespace Heroes.ReplayParser
             { "TownWallRadial7L3", UnitGroup.Structures },
             { "TownWallRadial8L3", UnitGroup.Structures },
             { "TownWallRadial9L3", UnitGroup.Structures },
-            
+
             { "DocksTreasureChest", UnitGroup.MapObjective },
             { "DragonShireShrineMoon", UnitGroup.MapObjective },
             { "DragonShireShrineSun", UnitGroup.MapObjective },
@@ -361,7 +361,7 @@ namespace Heroes.ReplayParser
             { "FootmanMinion", UnitGroup.Minions },
             { "RangedMinion", UnitGroup.Minions },
             { "WizardMinion", UnitGroup.Minions },
-            
+
             { "CampOwnershipFlag", UnitGroup.Miscellaneous },
             { "DocksPirateCaptain", UnitGroup.Miscellaneous },
             { "DragonballCaptureBeacon", UnitGroup.Miscellaneous },
@@ -408,7 +408,7 @@ namespace Heroes.ReplayParser
             { "UnderworldMineEntranceMinimapIcon", UnitGroup.Miscellaneous },
             { "WatchTowerCaptureBeacon", UnitGroup.Miscellaneous },
             { "WitchDoctorPlagueToadRelic", UnitGroup.Miscellaneous },
-            
+
             { "AbathurLocustSwarm", UnitGroup.HeroTalentSelection },
             { "BarbarianFerociousHealingItem", UnitGroup.HeroTalentSelection },
             { "Envenom", UnitGroup.HeroTalentSelection },
@@ -454,26 +454,27 @@ namespace Heroes.ReplayParser
                 var activeUnitsByUnitID = new Dictionary<int, Unit>();
                 var activeHeroUnits = new Dictionary<Player, Unit>();
                 var isCheckingForAbathurLocusts = true;
-                
+
                 var updateTargetUnitEventArray = replay.GameEvents.Where(i => i.eventType == GameEventType.CCmdUpdateTargetUnitEvent).OrderBy(i => i.TimeSpan).ToArray();
                 var updateTargetUnitEventArrayIndex = 0;
 
                 foreach (var unitTrackerEvent in replay.TrackerEvents.Where(i =>
-                    i.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitBornEvent ||
-                    i.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitRevivedEvent ||
-                    i.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitDiedEvent ||
-                    i.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitOwnerChangeEvent ||
-                    i.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitPositionsEvent))
+                    i.TrackerEventType == TrackerEventType.UnitBornEvent ||
+                    i.TrackerEventType == TrackerEventType.UnitRevivedEvent ||
+                    i.TrackerEventType == TrackerEventType.UnitDiedEvent ||
+                    i.TrackerEventType == TrackerEventType.UnitOwnerChangeEvent ||
+                    i.TrackerEventType == TrackerEventType.UnitPositionsEvent))
                 {
                     switch (unitTrackerEvent.TrackerEventType)
                     {
-                        case ReplayTrackerEvents.TrackerEventType.UnitBornEvent:
-                        case ReplayTrackerEvents.TrackerEventType.UnitRevivedEvent:
+                        case TrackerEventType.UnitBornEvent:
+                        case TrackerEventType.UnitRevivedEvent:
                             Unit newUnit;
                             var newUnitIndex = (int)unitTrackerEvent.Data.dictionary[0].vInt.Value;
 
-                            if (unitTrackerEvent.TrackerEventType == ReplayTrackerEvents.TrackerEventType.UnitBornEvent)
-                                newUnit = new Unit {
+                            if (unitTrackerEvent.TrackerEventType == TrackerEventType.UnitBornEvent)
+                                newUnit = new Unit
+                                {
                                     UnitID = GetUnitID(newUnitIndex, (int)unitTrackerEvent.Data.dictionary[1].vInt.Value),
                                     Name = unitTrackerEvent.Data.dictionary[2].blobText,
                                     Group = UnitGroupDictionary.ContainsKey(unitTrackerEvent.Data.dictionary[2].blobText) ? UnitGroupDictionary[unitTrackerEvent.Data.dictionary[2].blobText] : UnitGroup.Unknown,
@@ -482,19 +483,22 @@ namespace Heroes.ReplayParser
                                     : unitTrackerEvent.Data.dictionary[3].vInt.Value > 0 && unitTrackerEvent.Data.dictionary[3].vInt.Value <= 10 ? replay.PlayersWithOpenSlots[unitTrackerEvent.Data.dictionary[3].vInt.Value - 1].Team
                                     : (int?)null,
                                     PlayerControlledBy = unitTrackerEvent.Data.dictionary[3].vInt.Value > 0 && unitTrackerEvent.Data.dictionary[3].vInt.Value <= 10 ? replay.PlayersWithOpenSlots[unitTrackerEvent.Data.dictionary[3].vInt.Value - 1] : null,
-                                    PointBorn = new Point { X = (int)unitTrackerEvent.Data.dictionary[5].vInt.Value, Y = (int)unitTrackerEvent.Data.dictionary[6].vInt.Value } };
+                                    PointBorn = new Point { X = (int)unitTrackerEvent.Data.dictionary[5].vInt.Value, Y = (int)unitTrackerEvent.Data.dictionary[6].vInt.Value }
+                                };
                             else
                             {
                                 var deadUnit = activeUnitsByIndex[newUnitIndex];
 
-                                newUnit = new Unit {
+                                newUnit = new Unit
+                                {
                                     UnitID = deadUnit.UnitID,
                                     Name = deadUnit.Name,
                                     Group = deadUnit.Group,
                                     TimeSpanBorn = unitTrackerEvent.TimeSpan,
                                     Team = deadUnit.Team,
                                     PlayerControlledBy = deadUnit.PlayerControlledBy,
-                                    PointBorn = new Point { X = (int)unitTrackerEvent.Data.dictionary[2].vInt.Value, Y = (int)unitTrackerEvent.Data.dictionary[3].vInt.Value } };
+                                    PointBorn = new Point { X = (int)unitTrackerEvent.Data.dictionary[2].vInt.Value, Y = (int)unitTrackerEvent.Data.dictionary[3].vInt.Value }
+                                };
                             }
 
                             replay.Units.Add(newUnit);
@@ -532,7 +536,7 @@ namespace Heroes.ReplayParser
                             }
                             break;
 
-                        case ReplayTrackerEvents.TrackerEventType.UnitDiedEvent:
+                        case TrackerEventType.UnitDiedEvent:
                             var unitThatDied = activeUnitsByIndex[(int)unitTrackerEvent.Data.dictionary[0].vInt.Value];
                             var playerIDKilledBy = unitTrackerEvent.Data.dictionary[2].optionalData != null ? (int)unitTrackerEvent.Data.dictionary[2].optionalData.vInt.Value : (int?)null;
 
@@ -549,11 +553,13 @@ namespace Heroes.ReplayParser
                                 Console.WriteLine(""); */
                             break;
 
-                        case ReplayTrackerEvents.TrackerEventType.UnitOwnerChangeEvent:
-                            var ownerChangeEvent = new OwnerChangeEvent {
+                        case TrackerEventType.UnitOwnerChangeEvent:
+                            var ownerChangeEvent = new OwnerChangeEvent
+                            {
                                 TimeSpanOwnerChanged = unitTrackerEvent.TimeSpan,
                                 Team = unitTrackerEvent.Data.dictionary[2].vInt.Value == 11 || unitTrackerEvent.Data.dictionary[2].vInt.Value == 12 ? (int)unitTrackerEvent.Data.dictionary[2].vInt.Value - 11 : (int?)null,
-                                PlayerNewOwner = unitTrackerEvent.Data.dictionary[2].vInt.Value > 0 && unitTrackerEvent.Data.dictionary[2].vInt.Value <= 10 ? replay.PlayersWithOpenSlots[unitTrackerEvent.Data.dictionary[2].vInt.Value - 1] : null };
+                                PlayerNewOwner = unitTrackerEvent.Data.dictionary[2].vInt.Value > 0 && unitTrackerEvent.Data.dictionary[2].vInt.Value <= 10 ? replay.PlayersWithOpenSlots[unitTrackerEvent.Data.dictionary[2].vInt.Value - 1] : null
+                            };
 
                             if (!ownerChangeEvent.Team.HasValue && ownerChangeEvent.PlayerNewOwner != null)
                                 ownerChangeEvent.Team = ownerChangeEvent.PlayerNewOwner.Team;
@@ -565,17 +571,21 @@ namespace Heroes.ReplayParser
                                 activeHeroUnits[unitOwnerChanged.PlayerControlledBy].Positions.Add(new Position { TimeSpan = ownerChangeEvent.TimeSpanOwnerChanged, Point = unitOwnerChanged.PointBorn });
                             break;
 
-                        case ReplayTrackerEvents.TrackerEventType.UnitPositionsEvent:
+                        case TrackerEventType.UnitPositionsEvent:
                             var currentUnitIndex = (int)unitTrackerEvent.Data.dictionary[0].vInt.Value;
                             for (var i = 0; i < unitTrackerEvent.Data.dictionary[1].array.Length; i++)
                             {
                                 currentUnitIndex += (int)unitTrackerEvent.Data.dictionary[1].array[i++].vInt.Value;
 
-                                activeUnitsByIndex[currentUnitIndex].Positions.Add(new Position {
+                                activeUnitsByIndex[currentUnitIndex].Positions.Add(new Position
+                                {
                                     TimeSpan = unitTrackerEvent.TimeSpan,
-                                    Point = new Point {
+                                    Point = new Point
+                                    {
                                         X = (int)unitTrackerEvent.Data.dictionary[1].array[i++].vInt.Value,
-                                        Y = (int)unitTrackerEvent.Data.dictionary[1].array[i].vInt.Value } });
+                                        Y = (int)unitTrackerEvent.Data.dictionary[1].array[i].vInt.Value
+                                    }
+                                });
                             }
                             break;
                     }
@@ -584,11 +594,13 @@ namespace Heroes.ReplayParser
                     // Excellent for finding frequent, accurate locations of heroes during team fights
                     while (updateTargetUnitEventArrayIndex < updateTargetUnitEventArray.Length && unitTrackerEvent.TimeSpan > updateTargetUnitEventArray[updateTargetUnitEventArrayIndex].TimeSpan)
                         if (activeUnitsByUnitID.ContainsKey((int)updateTargetUnitEventArray[updateTargetUnitEventArrayIndex++].data.array[2].unsignedInt.Value))
-                            activeUnitsByUnitID[(int)updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].data.array[2].unsignedInt.Value].Positions.Add(new Position {
+                            activeUnitsByUnitID[(int)updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].data.array[2].unsignedInt.Value].Positions.Add(new Position
+                            {
                                 TimeSpan = updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].TimeSpan,
                                 Point = Point.FromEventFormat(
                                     updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].data.array[6].array[0].unsignedInt.Value,
-                                    updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].data.array[6].array[1].unsignedInt.Value) });
+                                    updateTargetUnitEventArray[updateTargetUnitEventArrayIndex - 1].data.array[6].array[1].unsignedInt.Value)
+                            });
                 }
             }
 
@@ -616,14 +628,19 @@ namespace Heroes.ReplayParser
                     i.data.array[1] == null &&
                     i.data.array[2] != null &&
                     i.data.array[2].array.Length == 3 &&
-                    playerToActiveHeroUnitIndexDictionary.ContainsKey(i.player)).Select(i => new {
+                    playerToActiveHeroUnitIndexDictionary.ContainsKey(i.player)).Select(i => new
+                    {
                         i.player,
-                        Position = new Position {
+                        Position = new Position
+                        {
                             TimeSpan = i.TimeSpan,
                             Point = Point.FromEventFormat(i.data.array[2].array[0].unsignedInt.Value, i.data.array[2].array[1].unsignedInt.Value),
-                            IsEstimated = true } })
+                            IsEstimated = true
+                        }
+                    })
                         .GroupBy(i => i.player)
-                        .Select(i => new {
+                        .Select(i => new
+                        {
                             Player = i.Key,
                             Positions = i.Select(j => j.Position)
 
@@ -631,50 +648,59 @@ namespace Heroes.ReplayParser
                                 .Union(replay.GameEvents.Where(j =>
                                     j.player == i.Key &&
                                     j.eventType == GameEventType.CCmdUpdateTargetPointEvent)
-                                .Select(j => new Position {
+                                .Select(j => new Position
+                                {
                                     TimeSpan = j.TimeSpan,
                                     Point = Point.FromEventFormat(j.data.array[0].unsignedInt.Value, j.data.array[1].unsignedInt.Value),
-                                    IsEstimated = true }))
+                                    IsEstimated = true
+                                }))
 
                                 // Take the single latest applicable CCmdEvent or CCmdUpdateTargetPointEvent if there are more than one in a second
                                 .GroupBy(j => (int)j.TimeSpan.TotalSeconds)
                                 .Select(j => j.OrderByDescending(k => k.TimeSpan).First())
 
-                            .ToArray() });
+                            .ToArray()
+                        });
 
                 // Find the applicable events for each Hero unit while they were alive
-                var playerAndHeroCCmdEventLists = playerCCmdEventLists.Select(i => i.Player.HeroUnits.Select(j => new {
+                var playerAndHeroCCmdEventLists = playerCCmdEventLists.Select(i => i.Player.HeroUnits.Select(j => new
+                {
                     HeroUnit = j,
-                    Positions = i.Positions.Where(k => k.TimeSpan > j.TimeSpanBorn && (!j.TimeSpanDied.HasValue || k.TimeSpan < j.TimeSpanDied.Value)).OrderBy(k => k.TimeSpan).ToArray() }));
+                    Positions = i.Positions.Where(k => k.TimeSpan > j.TimeSpanBorn && (!j.TimeSpanDied.HasValue || k.TimeSpan < j.TimeSpanDied.Value)).OrderBy(k => k.TimeSpan).ToArray()
+                }));
 
                 const double PlayerSpeedUnitsPerSecond = 5.0;
 
                 foreach (var playerCCmdEventList in playerAndHeroCCmdEventLists)
-                foreach (var heroCCmdEventList in playerCCmdEventList)
-                {
-                    // Estimate the hero unit travelling to each intended destination
-                    // Only save one position per second, and prefer accurate positions
-                    // Heroes can have a lot more positions, and probably won't be useful more frequently than this
-                    var heroTargetLocationArray = heroCCmdEventList.HeroUnit.Positions.Union(new[] { new Position { TimeSpan = heroCCmdEventList.HeroUnit.TimeSpanBorn, Point = heroCCmdEventList.HeroUnit.PointBorn } }).Union(heroCCmdEventList.Positions).GroupBy(i => (int)i.TimeSpan.TotalSeconds).Select(i => i.OrderBy(j => j.IsEstimated).First()).OrderBy(i => i.TimeSpan).ToArray();
-                    var currentEstimatedPosition = heroTargetLocationArray[0];
-                    for (var i = 0; i < heroTargetLocationArray.Length - 1; i++)
-                        if (!heroTargetLocationArray[i + 1].IsEstimated)
-                            currentEstimatedPosition = heroTargetLocationArray[i + 1];
-                        else
-                        {
-                            var percentageOfDistanceTravelledToTargetLocation = (heroTargetLocationArray[i + 1].TimeSpan - currentEstimatedPosition.TimeSpan).TotalSeconds * PlayerSpeedUnitsPerSecond / currentEstimatedPosition.Point.DistanceTo(heroTargetLocationArray[i + 1].Point);
-                            currentEstimatedPosition = new Position {
-                                TimeSpan = heroTargetLocationArray[i + 1].TimeSpan,
-                                Point = percentageOfDistanceTravelledToTargetLocation >= 1
-                                    ? heroTargetLocationArray[i + 1].Point
-                                    : new Point {
-                                        X = (int)((heroTargetLocationArray[i + 1].Point.X - currentEstimatedPosition.Point.X) * percentageOfDistanceTravelledToTargetLocation + currentEstimatedPosition.Point.X),
-                                        Y = (int)((heroTargetLocationArray[i + 1].Point.Y - currentEstimatedPosition.Point.Y) * percentageOfDistanceTravelledToTargetLocation + currentEstimatedPosition.Point.Y) },
-                                IsEstimated = true };
-                            heroCCmdEventList.HeroUnit.Positions.Add(currentEstimatedPosition);
-                        }
-                    heroCCmdEventList.HeroUnit.Positions = heroCCmdEventList.HeroUnit.Positions.OrderBy(i => i.TimeSpan).ToList();
-                }
+                    foreach (var heroCCmdEventList in playerCCmdEventList)
+                    {
+                        // Estimate the hero unit travelling to each intended destination
+                        // Only save one position per second, and prefer accurate positions
+                        // Heroes can have a lot more positions, and probably won't be useful more frequently than this
+                        var heroTargetLocationArray = heroCCmdEventList.HeroUnit.Positions.Union(new[] { new Position { TimeSpan = heroCCmdEventList.HeroUnit.TimeSpanBorn, Point = heroCCmdEventList.HeroUnit.PointBorn } }).Union(heroCCmdEventList.Positions).GroupBy(i => (int)i.TimeSpan.TotalSeconds).Select(i => i.OrderBy(j => j.IsEstimated).First()).OrderBy(i => i.TimeSpan).ToArray();
+                        var currentEstimatedPosition = heroTargetLocationArray[0];
+                        for (var i = 0; i < heroTargetLocationArray.Length - 1; i++)
+                            if (!heroTargetLocationArray[i + 1].IsEstimated)
+                                currentEstimatedPosition = heroTargetLocationArray[i + 1];
+                            else
+                            {
+                                var percentageOfDistanceTravelledToTargetLocation = (heroTargetLocationArray[i + 1].TimeSpan - currentEstimatedPosition.TimeSpan).TotalSeconds * PlayerSpeedUnitsPerSecond / currentEstimatedPosition.Point.DistanceTo(heroTargetLocationArray[i + 1].Point);
+                                currentEstimatedPosition = new Position
+                                {
+                                    TimeSpan = heroTargetLocationArray[i + 1].TimeSpan,
+                                    Point = percentageOfDistanceTravelledToTargetLocation >= 1
+                                        ? heroTargetLocationArray[i + 1].Point
+                                        : new Point
+                                        {
+                                            X = (int)((heroTargetLocationArray[i + 1].Point.X - currentEstimatedPosition.Point.X) * percentageOfDistanceTravelledToTargetLocation + currentEstimatedPosition.Point.X),
+                                            Y = (int)((heroTargetLocationArray[i + 1].Point.Y - currentEstimatedPosition.Point.Y) * percentageOfDistanceTravelledToTargetLocation + currentEstimatedPosition.Point.Y)
+                                        },
+                                    IsEstimated = true
+                                };
+                                heroCCmdEventList.HeroUnit.Positions.Add(currentEstimatedPosition);
+                            }
+                        heroCCmdEventList.HeroUnit.Positions = heroCCmdEventList.HeroUnit.Positions.OrderBy(i => i.TimeSpan).ToList();
+                    }
             }
 
             // Save no more than one position event per second per unit
@@ -747,9 +773,11 @@ namespace Heroes.ReplayParser
                                 if ((team == 0 && firstLaneUnitPosition.Point.X > laneWaypoint.X) || team == 1 && firstLaneUnitPosition.Point.X < laneWaypoint.X)
                                 {
                                     var leg1Distance = beginningPosition.Point.DistanceTo(laneWaypoint);
-                                    var newPosition = new Position {
+                                    var newPosition = new Position
+                                    {
                                         TimeSpan = beginningPosition.TimeSpan + TimeSpan.FromSeconds((long)((firstLaneUnitPosition.TimeSpan - beginningPosition.TimeSpan).TotalSeconds * (leg1Distance / (leg1Distance + laneWaypoint.DistanceTo(firstLaneUnitPosition.Point))))),
-                                        Point = laneWaypoint };
+                                        Point = laneWaypoint
+                                    };
                                     laneUnit.Positions.Add(newPosition);
                                     beginningPosition = newPosition;
                                     isLaneUnitModified = true;

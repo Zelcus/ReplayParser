@@ -108,12 +108,12 @@ namespace Heroes.ReplayParser
                 return new Tuple<ReplayParseResult, Replay>(ReplayParseResult.ComputerPlayerFound, null);
             else if (!allowPTRRegion && replay.Players.Any(i => i.BattleNetRegionId >= 90 /* PTR/Test Region */))
                 return new Tuple<ReplayParseResult, Replay>(ReplayParseResult.PTRRegion, null);
-            else if (replay.Players.Count(i => i.IsWinner) != 5 || replay.Players.Length != 10 || (replay.GameMode != GameMode.StormLeague && 
-                    replay.GameMode != GameMode.TeamLeague && 
-                    replay.GameMode != GameMode.HeroLeague && 
-                    replay.GameMode != GameMode.UnrankedDraft && 
-                    replay.GameMode != GameMode.QuickMatch && 
-                    replay.GameMode != GameMode.Custom && 
+            else if (replay.Players.Count(i => i.IsWinner) != 5 || replay.Players.Length != 10 || (replay.GameMode != GameMode.StormLeague &&
+                    replay.GameMode != GameMode.TeamLeague &&
+                    replay.GameMode != GameMode.HeroLeague &&
+                    replay.GameMode != GameMode.UnrankedDraft &&
+                    replay.GameMode != GameMode.QuickMatch &&
+                    replay.GameMode != GameMode.Custom &&
                     replay.GameMode != GameMode.Brawl &&
                     replay.GameMode != GameMode.ARAM))
                 return new Tuple<ReplayParseResult, Replay>(ReplayParseResult.UnexpectedResult, null);
@@ -143,7 +143,7 @@ namespace Heroes.ReplayParser
 
             // Replay Init Data
             ReplayInitData.Parse(replay, GetMpqFile(archive, ReplayInitData.FileName));
-            
+
             ReplayAttributeEvents.Parse(replay, GetMpqFile(archive, ReplayAttributeEvents.FileName));
 
             if (parseOptions.ShouldParseEvents)

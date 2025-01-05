@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Heroes.ReplayParser.MPQFiles.DataStructures;
 
 namespace Heroes.ReplayParser.MPQFiles
 {
@@ -21,11 +22,13 @@ namespace Heroes.ReplayParser.MPQFiles
             {
                 var currentOffset = initialOffset + (i * 13);
 
-                var attribute = new ReplayAttribute {
+                var attribute = new ReplayAttribute
+                {
                     Header = BitConverter.ToInt32(buffer, currentOffset),
                     AttributeType = (ReplayAttributeEventType)BitConverter.ToInt32(buffer, currentOffset + 4),
                     PlayerId = buffer[currentOffset + 8],
-                    Value = new byte[4] };
+                    Value = new byte[4]
+                };
 
                 Array.Copy(buffer, currentOffset + 9, attribute.Value, 0, 4);
 
@@ -143,7 +146,7 @@ namespace Heroes.ReplayParser.MPQFiles
                                     replay.GameSpeed = GameSpeed.Faster;
                                     break;
 
-                                // Otherwise, Game Speed will remain "Unknown"
+                                    // Otherwise, Game Speed will remain "Unknown"
                             }
 
                             break;
@@ -288,17 +291,17 @@ namespace Heroes.ReplayParser.MPQFiles
                     case (ReplayAttributeEventType)4011: // What is this? Draft order?
                         break;
                     case (ReplayAttributeEventType)4016: // What is this? Always '1' in Hero League
-                        // if (replay.GameMode == GameMode.HeroLeague && int.Parse(encoding.GetString(attribute.Value.Reverse().ToArray())) != 1)
-                            // Console.WriteLine("WAAT!?");
+                                                         // if (replay.GameMode == GameMode.HeroLeague && int.Parse(encoding.GetString(attribute.Value.Reverse().ToArray())) != 1)
+                                                         // Console.WriteLine("WAAT!?");
                         break;
                     case (ReplayAttributeEventType)4017: // What is this? Always '5' in Hero League
-                        // if (replay.GameMode == GameMode.HeroLeague && int.Parse(encoding.GetString(attribute.Value.Reverse().ToArray())) != 5)
-                            // Console.WriteLine("WAAT!?");
+                                                         // if (replay.GameMode == GameMode.HeroLeague && int.Parse(encoding.GetString(attribute.Value.Reverse().ToArray())) != 5)
+                                                         // Console.WriteLine("WAAT!?");
                         break;
 
                     case ReplayAttributeEventType.DraftBanMode:
-						// Options: No Ban (""), One Ban ("1ban"), Two Ban ("2ban"), Mid Ban ("Mban"), Three Ban ("3ban")
-						break;
+                        // Options: No Ban (""), One Ban ("1ban"), Two Ban ("2ban"), Mid Ban ("Mban"), Three Ban ("3ban")
+                        break;
 
                     case ReplayAttributeEventType.DraftTeam1BanChooserSlot:
                     case ReplayAttributeEventType.DraftTeam2BanChooserSlot:
@@ -314,11 +317,11 @@ namespace Heroes.ReplayParser.MPQFiles
 
                     case ReplayAttributeEventType.DraftTeam1Ban1:
                     case ReplayAttributeEventType.DraftTeam1Ban2:
-					case ReplayAttributeEventType.DraftTeam1Ban3:
-					case ReplayAttributeEventType.DraftTeam2Ban1:
+                    case ReplayAttributeEventType.DraftTeam1Ban3:
+                    case ReplayAttributeEventType.DraftTeam2Ban1:
                     case ReplayAttributeEventType.DraftTeam2Ban2:
-					case ReplayAttributeEventType.DraftTeam2Ban3:
-						var draftTeamBanValue = encoding.GetString(attribute.Value.Reverse().ToArray()).Trim('\0');
+                    case ReplayAttributeEventType.DraftTeam2Ban3:
+                        var draftTeamBanValue = encoding.GetString(attribute.Value.Reverse().ToArray()).Trim('\0');
                         if (draftTeamBanValue != "")
                             switch (attribute.AttributeType)
                             {
@@ -328,19 +331,19 @@ namespace Heroes.ReplayParser.MPQFiles
                                 case ReplayAttributeEventType.DraftTeam1Ban2:
                                     replay.TeamHeroBans[0][1] = draftTeamBanValue;
                                     break;
-								case ReplayAttributeEventType.DraftTeam1Ban3:
-									replay.TeamHeroBans[0][2] = draftTeamBanValue;
-									break;
-								case ReplayAttributeEventType.DraftTeam2Ban1:
+                                case ReplayAttributeEventType.DraftTeam1Ban3:
+                                    replay.TeamHeroBans[0][2] = draftTeamBanValue;
+                                    break;
+                                case ReplayAttributeEventType.DraftTeam2Ban1:
                                     replay.TeamHeroBans[1][0] = draftTeamBanValue;
                                     break;
                                 case ReplayAttributeEventType.DraftTeam2Ban2:
                                     replay.TeamHeroBans[1][1] = draftTeamBanValue;
                                     break;
-								case ReplayAttributeEventType.DraftTeam2Ban3:
-									replay.TeamHeroBans[1][2] = draftTeamBanValue;
-									break;
-							}
+                                case ReplayAttributeEventType.DraftTeam2Ban3:
+                                    replay.TeamHeroBans[1][2] = draftTeamBanValue;
+                                    break;
+                            }
                         break;
                 }
 
@@ -357,94 +360,11 @@ namespace Heroes.ReplayParser.MPQFiles
             else if (replay.TeamSize.Equals("FFA"))
                 currentList = attributesffa;
 
-			/* Team is parsed in ReplayDetails.cs, this is unnecessary
+            /* Team is parsed in ReplayDetails.cs, this is unnecessary
             if (currentList != null)
                 foreach (var att in currentList)
                     // Reverse the values then parse, you don't notice the effects of this until theres 10+ teams o.o
                     replay.PlayersWithOpenSlots[att.PlayerId - 1].Team = int.Parse(encoding.GetString(att.Value.Reverse().ToArray()).Trim('\0', 'T')); */
-		}
-
-		public enum ReplayAttributeEventType
-        {
-            PlayerTypeAttribute = 500,
-            Rules = 1000,
-            IsPremadeGame = 1001,
-
-            /* 2000 - 2024 are related to team sizes */
-            TeamSizeAttribute = 2001,
-            PlayerTeam1v1Attribute = 2002,
-            PlayerTeam2v2Attribute = 2003,
-            PlayerTeam3v3Attribute = 2004,
-            PlayerTeam4v4Attribute = 2005,
-            PlayerTeamFFAAttribute = 2006,
-
-            GameSpeedAttribute = 3000,
-            PlayerRaceAttribute = 3001,
-            TeamColorIndexAttribute = 3002,
-            PlayerHandicapAttribute = 3003,
-            DifficultyLevelAttribute = 3004,
-            ComputerRace = 3005,
-            LobbyDelay = 3006,
-            ParticipantRole = 3007,
-            WatcherType = 3008,
-            GameTypeAttribute = 3009,
-            LockedAlliances = 3010,
-            PlayerLogo = 3011,
-            TandemLeader = 3012,
-            Commander = 3013,
-            CommanderLevel = 3014,
-            GameDuration = 3015,
-            /* 3100 - 3300 are related to AI builds (for Starcraft 2) */
-
-            PrivacyOption = 4000,
-            UsingCustomObserverUI = 4001,
-            HeroAttributeId = 4002,
-            SkinAndSkinTintAttributeId = 4003,
-            MountAndMountTintAttributeId = 4004,
-            Ready = 4005,
-            HeroRange = 4006,
-            HeroRole = 4007,
-            CharacterLevel = 4008,
-            CanReady = 4009,
-            LobbyMode = 4010,
-            ReadyOrder = 4011,
-            ReadyingTeam = 4012,
-            HeroDuplicates = 4013,
-            HeroVisibility = 4014,
-            LobbyPhase = 4015,
-            ReadyingCount = 4016,
-            ReadyingRound = 4017,
-            ReadyMode = 4018,
-            ReadyRequirements = 4019,
-            FirstReadyingTeam = 4020,
-
-            DraftBanMode = 4021,
-
-            DraftTeam1BanChooserSlot = 4022,
-            DraftTeam1Ban1 = 4023,
-            DraftTeam1Ban1LockedIn = 4024,
-            DraftTeam1Ban2 = 4025,
-            DraftTeam1Ban2LockedIn = 4026,
-
-            BannerAttributeId = 4032,
-            SprayAttributeId = 4033,
-            VoiceLineAttributeId = 4034,
-            AnnouncerAttributeId = 4035,
-
-            /* 4036 - 4042 ??? */
-
-            DraftTeam1Ban3 = 4043,
-            DraftTeam1Ban3LockedIn = 4044,
-
-            DraftTeam2BanChooserSlot = 4027,
-            DraftTeam2Ban1 = 4028,
-            DraftTeam2Ban1LockedIn = 4029,
-            DraftTeam2Ban2 = 4030,
-            DraftTeam2Ban2LockedIn = 4031,
-            DraftTeam2Ban3 = 4045,
-            DraftTeam2Ban3LockedIn = 4046,
-
-            /* 4100 - 4200 are related to Artifacts, no longer in the game */
         }
 
         private class ReplayAttribute
