@@ -41,15 +41,47 @@ namespace ConsoleApplication
                     Console.WriteLine("Player Data:");
                     foreach (var player in replay.Players.OrderByDescending(i => i.IsWinner))
                     {
-                        Console.WriteLine($"Name: {player.Name}");
-                        Console.WriteLine($"Is Winner: {player.IsWinner}");
-                        Console.WriteLine($"Hero: {player.Character}");
-                        Console.WriteLine($"Character Level: {player.CharacterLevel}");
-                        Console.WriteLine($"Talents: {string.Join(",", player.Talents.Select(i => $"{i.TalentID}:{i.TalentName}"))}");
-                        Console.WriteLine("---");
+                        Console.WriteLine($"Name: {player.Name}, Hero: {player.Character}, Is Winner: {player.IsWinner}");
                     }
+                    Console.WriteLine("\nType a player's name to see their detailed stats, or press 'Esc' to exit.");
 
-                    Console.WriteLine("Press Any Key to Close");
+                    while (true)
+                    {
+                        Console.Write("\nEnter player name: ");
+                        var input = Console.ReadLine();
+
+                        if (string.IsNullOrEmpty(input))
+                        {
+                            Console.WriteLine("No input detected. Please try again.");
+                            continue;
+                        }
+
+                        if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
+                        {
+                            Console.WriteLine("Exiting program. Goodbye!");
+                            break;
+                        }
+
+                        var player = replay.Players.FirstOrDefault(p => p.Name.Equals(input, StringComparison.OrdinalIgnoreCase));
+                        if (player != null)
+                        {
+                            Console.WriteLine($"\nDetails for Player: {player.Name}");
+                            Console.WriteLine($"Hero: {player.Character}");
+                            Console.WriteLine($"Is Winner: {player.IsWinner}");
+                            Console.WriteLine($"Character Level: {player.CharacterLevel}");
+                            Console.WriteLine($"Kills: {player.ScoreResult.Takedowns}");
+                            Console.WriteLine($"Assists: {player.ScoreResult.Assists}");
+                            Console.WriteLine($"Deaths: {player.ScoreResult.Deaths}");
+                            Console.WriteLine($"Hero Damage: {player.ScoreResult.HeroDamage}");
+                            Console.WriteLine($"Siege Damage: {player.ScoreResult.SiegeDamage}");
+                            Console.WriteLine($"Structure Damage: {player.ScoreResult.StructureDamage}");
+                            Console.WriteLine($"Talents: {string.Join(",", player.Talents.Select(i => $"{i.TalentID}:{i.TalentName}"))}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Player not found in this game. Please try again.");
+                        }
+                    }
                 }
                 else
                 {
